@@ -1,0 +1,55 @@
+# Web容器服务配置
+server:
+  port: 8001
+
+# Spring配置
+spring:
+  profiles:
+    active: dev
+  # 应用配置
+  application:
+    name: log-system
+
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/single?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # Redis配置
+  redis:
+    host: localhost
+    port: 6379
+
+  servlet:
+    # 文件上传最大10M
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+
+# MyBatis Plus 配置
+mybatis-plus:
+  # 扫描 xml 路径
+  mapper-locations: classpath*:/mapper/**/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  config: logback-spring.xml
+  level:
+    com.agefades.log.order.client: debug
+
+# Swagger 配置
+swagger:
+  title: 系统模块
+  description: 当前环境:本地开发
+  version: 1.0
+
+sentry:
+  dsn: http://0ec984803fd64c5bb83d72a849876bbc@sentry.saas.pengpaibao.com/4
+  environment: dev
+  server-name: ${spring.application.name}
+  exception-resolver-order: 2147483647
+  debug: true

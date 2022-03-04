@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter" />
+    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter" />
+    <!-- 彩色日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%-5level]) %clr([%X{userId}]){faint} %clr([%X{traceId}]){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}%L:){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}" />
+
+    <springProperty scope="context" name="log.path" source="logging.file.path"/>
+    <springProperty scope="context" name="app.name" source="spring.application.name"/>
+    <springProperty scope="context" name="app.profile" source="spring.profiles.active"/>
+
+    <!-- 控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 生成日志文件 -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志日常打印文件 -->
+        <file>./logs/${app.name}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件输出的文件名 -->
+            <FileNamePattern>./logs/${app.name}/app-%d{yyyy-MM-dd}.%i.log.gz</FileNamePattern>
+            <!-- 日志文件保留天数 -->
+            <MaxHistory>15</MaxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%X{userId}] [%X{traceId}] [%15.15t] %-40.40logger{39}%L: %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>117.50.175.168:9400</destination>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        <!--设置项目-->
+                        "app": "${app.name:-}",
+                        <!--设置环境-->
+                        "profile": "${app.profile:-}",
+                        <!--设置等级-->
+                        "level": "%level",
+                        <!--设置userId-->
+                        "userId": "%X{userId}",
+                        <!--设置traceId-->
+                        "traceId": "%X{traceId}",
+                        <!--设置消息-->
+                        "message": "[%thread] [%logger{35}:%L] %msg"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- 日志输出级别 -->
+    <root level="INFO">
+        <appender-ref ref="console" />
+        <appender-ref ref="file" />
+        <appender-ref ref="logstash"/>
+    </root>
+
+    <!-- 减少nacos日志 -->
+    <logger name="com.alibaba.nacos" level="ERROR"/>
+
+</configuration>

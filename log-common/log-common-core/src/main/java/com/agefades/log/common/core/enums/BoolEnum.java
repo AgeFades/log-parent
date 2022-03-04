@@ -1,0 +1,33 @@
+package com.agefades.log.common.core.enums;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+/**
+ * 布尔类型枚举
+ *
+ * @author DuChao
+ * @date 2021/1/12 4:37 下午
+ */
+@Getter
+@AllArgsConstructor
+public enum BoolEnum {
+
+    /**
+     * Boolean.TRUE
+     */
+    Y(1, "1", "SUCCESS"),
+
+    /**
+     * Boolean.FALSE
+     */
+    N(0, "0", "ERROR")
+
+    ;
+    private final int code;
+
+    private final String codeStr;
+
+    private final String enumStr;
+
+}

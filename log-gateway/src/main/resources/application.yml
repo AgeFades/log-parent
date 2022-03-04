@@ -1,0 +1,53 @@
+server:
+  port: 8000
+
+spring:
+  profiles:
+    active: dev
+
+  application:
+    name: log-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          # 开启服务注册与发现功能
+          # 自动根据服务发现为每一个服务创建 router
+          # 该 router 将以服务名开头的请求路径转发到对应服务
+          enabled: true
+          # 将服务名配置为小写
+          lowerCaseServiceId: true
+          filters:
+            # 转发之前去掉前缀 /user/add -> /add
+            - StripPrefix=1
+      # 跨域配置
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - DELETE
+              - PUT
+              - OPTION
+              - PATCH
+
+logging:
+  config: logback-spring.xml
+
+sentry:
+  dsn: http://e8bfab3cdfed4b1c9b4abafbd029b74c@sentry.agefades.com/5
+  environment: dev
+  server-name: ${spring.application.name}
+  exception-resolver-order: 2147483647
+
+auth:
+  ignore:
+    post:
+      # 登陆放行,无需认证鉴权
+      - "/auth/login"
+
+    # 仅需登陆即可访问的路径
+    onlyLogin:
+      - "/test/ok"
