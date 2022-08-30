@@ -12,6 +12,7 @@ import com.agefades.log.common.core.enums.CommonResultCodeEnum;
 import com.agefades.log.common.core.util.Assert;
 import com.agefades.log.common.core.util.ExceptionUtil;
 import com.agefades.log.common.core.util.JwtUtil;
+import com.agefades.log.common.core.util.UserInfoContextUtil;
 import com.agefades.log.common.core.util.dto.CacheMenuDTO;
 import com.agefades.log.common.core.util.dto.SysUserDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -99,6 +100,7 @@ public class AuthFilter implements GlobalFilter {
             // 校验通过，传递用户数据
             String userInfoStr = userInfoObj.toString();
             sysUserDTO = JSONUtil.toBean(userInfoStr, SysUserDTO.class);
+            UserInfoContextUtil.setSysUserDTO(sysUserDTO);
             permissions = JSONUtil.toList(JSONUtil.parseArray(cacheMap.get(RedisConstant.SYS_USER_PERMISSION)), CacheMenuDTO.class);
             exchange = exchange.mutate().request(request.mutate().header(CommonConstant.HEADER_SYS_USER, userInfoStr).build()).build();
         }

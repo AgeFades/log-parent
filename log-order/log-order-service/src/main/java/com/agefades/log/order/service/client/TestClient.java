@@ -1,7 +1,8 @@
 package com.agefades.log.order.service.client;
 
+import com.agefades.log.common.core.base.Result;
+import com.agefades.log.common.core.util.UserInfoContextUtil;
 import com.agefades.log.common.core.util.dto.SysUserDTO;
-import com.agefades.log.common.log.util.UserInfoContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestClient {
 
     @GetMapping("ok")
-    public SysUserDTO testOk() {
-        int i = 1 / 0;
-        log.info("服务调用，输出日志测试");
-        return UserInfoContextUtil.getSysUserDTO();
+    public Result<SysUserDTO> testOk() {
+        log.info("服务调用，当前是灰度发布服务");
+        return Result.success(UserInfoContextUtil.getSysUserDTO());
     }
 
 }

@@ -15,6 +15,7 @@ import lombok.Getter;
 public enum HttpEnum {
 
     TENCENT_MAP("腾讯地图"),
+    NACOS("nacos"),
     ;
     private final String desc;
 

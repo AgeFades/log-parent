@@ -3,7 +3,7 @@ package com.agefades.log.order.service.controller;
 import com.agefades.log.common.core.base.Result;
 import com.agefades.log.common.core.util.dto.SysUserDTO;
 import com.agefades.log.common.log.annotation.SysLog;
-import com.agefades.log.common.log.util.UserInfoContextUtil;
+import com.agefades.log.common.core.util.UserInfoContextUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;

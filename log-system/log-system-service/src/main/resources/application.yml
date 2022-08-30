@@ -52,4 +52,4 @@ sentry:
   environment: dev
   server-name: ${spring.application.name}
   exception-resolver-order: 2147483647
-  debug: true
+#  debug: true

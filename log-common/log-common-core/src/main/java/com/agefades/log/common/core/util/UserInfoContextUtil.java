@@ -1,9 +1,7 @@
-package com.agefades.log.common.log.util;
+package com.agefades.log.common.core.util;
 
 import com.agefades.log.common.core.constants.CommonConstant;
 import com.agefades.log.common.core.enums.CommonResultCodeEnum;
-import com.agefades.log.common.core.util.Assert;
-import com.agefades.log.common.core.util.ThreadLocalUtil;
 import com.agefades.log.common.core.util.dto.SysUserDTO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +25,6 @@ public class UserInfoContextUtil extends ThreadLocalUtil {
      * 获取当前应用线程上下文中的用户信息,获取失败则抛出异常,指引用户完成登陆
      */
     public static SysUserDTO getSysUserDTO() {
-        log.info("获取当前用户");
         return getSysUserDTO(false);
     }
 

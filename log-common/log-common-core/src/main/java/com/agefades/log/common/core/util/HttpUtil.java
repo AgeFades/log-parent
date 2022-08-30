@@ -4,12 +4,10 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HttpResponse;
+import cn.hutool.http.Method;
 import cn.hutool.json.JSONUtil;
 import com.agefades.log.common.core.enums.HttpEnum;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 
 import java.util.Map;
@@ -77,6 +75,22 @@ public class HttpUtil {
                     .timeout(DEFAULT_TIME_OUT)
                     .execute()
                     .body();
+        } else if (method.equals(HttpMethod.PUT)) {
+            if (MapUtil.isNotEmpty(form)) {
+                result = cn.hutool.http.HttpUtil.createRequest(Method.PUT, url)
+                        .addHeaders(header)
+                        .form(form)
+                        .timeout(DEFAULT_TIME_OUT)
+                        .execute()
+                        .body();
+            } else {
+                result = cn.hutool.http.HttpUtil.createRequest(Method.PUT, url)
+                        .addHeaders(header)
+                        .body(bodyStr)
+                        .timeout(DEFAULT_TIME_OUT)
+                        .execute()
+                        .body();
+            }
         }
 
         log.info("[{}]请求结果: {}", desc, result);
@@ -118,6 +132,13 @@ public class HttpUtil {
 
     public static String doPost(HttpEnum httpEnum, String url, Map<String, Object> form) {
         return doHttp(httpEnum, HttpMethod.POST, url, null, form, null);
+    }
+
+    public static String doPut(HttpEnum httpEnum, String url) {
+        return doHttp(httpEnum, HttpMethod.PUT, url, null, null, null);
+    }
+    public static String doPut(HttpEnum httpEnum, String url, Map<String, Object> form) {
+        return doHttp(httpEnum, HttpMethod.PUT, url, null, form, null);
     }
 
     public static String doPost(HttpEnum httpEnum, String url, Map<String, String> header, Map<String, Object> form, Object body) {

@@ -122,6 +122,7 @@ CREATE TABLE `sys_user` (
   `is_enable` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态  0未启用 1 启用',
   `comment` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
   `is_admin` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否超级管理员 1是 0否',
+  `is_gray` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否走灰度服务 1是 0否',
   `deleted` tinyint(1) NOT NULL DEFAULT '0' COMMENT '删除标记 0未删除 1删除',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',

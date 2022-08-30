@@ -2,6 +2,7 @@ package com.agefades.log.system.service.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
@@ -15,11 +16,13 @@ import com.agefades.log.system.service.mapper.SysUserMapper;
 import com.agefades.log.system.service.service.SysUserService;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
@@ -54,7 +57,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         req.setPassword(DigestUtil.bcrypt(req.getPassword()));
 
         // 3. 保存用户
-        save(BeanUtil.copyProperties(req, SysUser.class));
+        SysUser sysUser = BeanUtil.copyProperties(req, SysUser.class);
+        String id = IdUtil.getSnowflake().nextIdStr();
+        log.info("测试自己赋值主键: {}", id);
+        sysUser.setId(id);
+        save(sysUser);
     }
 
     @Override

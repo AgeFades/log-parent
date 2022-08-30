@@ -22,6 +22,11 @@ public interface CommonConstant {
     String USER_ID = "userId";
 
     /**
+     * 灰度服务标记
+     */
+    String GRAY = "gray";
+
+    /**
      * 项目名
      */
     String PROJECT_NAME = "log";

@@ -4,7 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
 import com.agefades.log.common.core.util.IpUtil;
 import com.agefades.log.common.log.service.SysLogService;
-import com.agefades.log.common.log.util.UserInfoContextUtil;
+import com.agefades.log.common.core.util.UserInfoContextUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;

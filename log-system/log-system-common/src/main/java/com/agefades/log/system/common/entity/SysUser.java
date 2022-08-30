@@ -1,5 +1,6 @@
 package com.agefades.log.system.common.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -21,7 +22,7 @@ public class SysUser implements Serializable {
     /**
      * 主键
      */
-    @TableId
+    @TableId(type = IdType.ASSIGN_ID)
     private String id;
     /**
      * 用户名，唯一
@@ -55,6 +56,10 @@ public class SysUser implements Serializable {
      * 是否超级管理员 1是 0否
      */
     private Integer isAdmin;
+    /**
+     * 是否走灰度服务 1是 0否
+     */
+    private Integer isGray;
     /**
      * 创建时间
      */
