@@ -10,7 +10,6 @@ import com.netflix.client.config.IClientConfig;
 import com.netflix.loadbalancer.AbstractLoadBalancerRule;
 import com.netflix.loadbalancer.Server;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,6 @@ import java.util.List;
  * @date 2022/8/3 10:08
  */
 @Slf4j
-@Configuration
 public class GrayRule extends AbstractLoadBalancerRule {
 
     @Override
