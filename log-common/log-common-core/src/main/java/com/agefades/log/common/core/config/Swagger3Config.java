@@ -1,9 +1,12 @@
 package com.agefades.log.common.core.config;
 
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -28,6 +31,8 @@ import java.util.function.Predicate;
  * @date 2021/1/12 4:06 下午
  */
 @Configuration
+@EnableKnife4j
+@Import(BeanValidatorPluginsConfiguration.class)
 public class Swagger3Config {
 
     @Value("${swagger.title:请设置配置}")
