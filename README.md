@@ -20,9 +20,7 @@
 
 ## 接口文档地址
 
-- 本地 http://localhost:8000/swagger-ui/index.html
-
-![](https://agefades-note.oss-cn-beijing.aliyuncs.com/1638933747606.png)
+- 本地 http://localhost:8000/doc.html
 
 ## 微服务模块定义
 
