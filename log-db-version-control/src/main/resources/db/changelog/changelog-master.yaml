@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      # 1.0版本SQL
+      file: /db/changelog/changelog-1.0.yaml

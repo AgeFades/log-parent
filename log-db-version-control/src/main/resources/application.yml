@@ -1,0 +1,19 @@
+server:
+  port: 8003
+spring:
+  # 数据源配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/single?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  liquibase:
+    enabled: true
+    # Liquibase 配置文件地址
+    change-log: classpath:/db/changelog/changelog-master.yaml
+    database_change_log_table: z_database_change_log
+    database_change_log_lock_table: z_database_change_log_lock
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}

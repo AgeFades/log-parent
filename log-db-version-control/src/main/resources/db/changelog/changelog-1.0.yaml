@@ -1,0 +1,16 @@
+# 1.0版本初始SQL执行记录文件
+databaseChangeLog:
+  - changeSet:
+      id: 20230105-100
+      author: AgeFades
+      comments: 初始化xx项目库表结构及数据
+      changes:
+        # sql多的可用文件指定
+        - sqlFile:
+            encoding: utf8
+            path: classpath:db/sql/structure/1.0/db-structure-init.sql
+        - sqlFile:
+            encoding: utf8
+            path: classpath:db/sql/data/1.0/db-data-init.sql
+        # sql少的可直接执行sql
+        - sql: alter table test add column agefades varchar(255) comment "测试changeSet直接执行sql";
